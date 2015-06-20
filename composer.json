@@ -9,7 +9,6 @@
         }
     ],
     "require": {
-        "laravel/laravel": "^5.0",
         "php": ">=5.3.0",
         "guzzlehttp/guzzle": "^5.2"
     },
