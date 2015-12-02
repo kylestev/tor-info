@@ -1,8 +1,9 @@
 <?php
 
-namespace TorInfo;
+namespace TorInfo\Support\Laravel;
 
 use Illuminate\Support\ServiceProvider;
+use TorInfo\Support\Laravel\Console\CacheTorIPs;
 
 class TorInfoServiceProvider extends ServiceProvider
 {

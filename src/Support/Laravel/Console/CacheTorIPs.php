@@ -1,6 +1,6 @@
 <?php
 
-namespace TorInfo;
+namespace TorInfo\Support\Laravel\Console;
 
 use Illuminate\Console\Command;
 use Illuminate\Contracts\Cache\Repository as Cache;
