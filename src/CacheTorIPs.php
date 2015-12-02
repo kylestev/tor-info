@@ -24,19 +24,13 @@ class CacheTorIPs extends Command
     protected $description = 'Caches known Tor exit nodes.';
 
     /**
-     * @var FetchTorExitNodes
-     */
-    protected $exitNodeFetcher;
-
-    /**
      * Create a new command instance.
      *
      * @return void
      */
-    public function __construct(FetchTorExitNodes $exitNodeFetcher)
+    public function __construct()
     {
         parent::__construct();
-        $this->exitNodeFetcher = $exitNodeFetcher;
     }
 
     /**
@@ -54,7 +48,7 @@ class CacheTorIPs extends Command
 
     private function fetchExitNodeIPs()
     {
-        return collect($this->exitNodeFetcher->exec());
+        return collect((new FetchTorExitNodes)->exec());
     }
 
 }
