@@ -2,14 +2,12 @@
 
 namespace TorInfo;
 
-use GuzzleHttp\Client;
 use Illuminate\Console\Command;
 use Illuminate\Contracts\Cache\Repository as Cache;
+use TorInfo\Commands\FetchTorExitNodes;
 
 class CacheTorIPs extends Command
 {
-
-    const URL_EXIT_NODES = 'https://check.torproject.org/exit-addresses';
 
     /**
      * The name and signature of the console command.
@@ -26,13 +24,19 @@ class CacheTorIPs extends Command
     protected $description = 'Caches known Tor exit nodes.';
 
     /**
+     * @var FetchTorExitNodes
+     */
+    protected $exitNodeFetcher;
+
+    /**
      * Create a new command instance.
      *
      * @return void
      */
-    public function __construct()
+    public function __construct(FetchTorExitNodes $exitNodeFetcher)
     {
         parent::__construct();
+        $this->exitNodeFetcher = $exitNodeFetcher;
     }
 
     /**
@@ -50,18 +54,7 @@ class CacheTorIPs extends Command
 
     private function fetchExitNodeIPs()
     {
-        $client   = new Client();
-        $response = $client->get(self::URL_EXIT_NODES);
-        return $this->extractIPs($response);
-    }
-
-    private function extractIPs($response)
-    {
-        return collect(explode("\n", $response->getBody()))->filter(function ($line) {
-            return starts_with($line, 'ExitAddress');
-        })->map(function ($line) {
-            return explode(' ', $line)[1];
-        });
+        return collect($this->exitNodeFetcher->exec());
     }
 
 }
