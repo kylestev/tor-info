@@ -4,8 +4,8 @@ namespace TorInfo\Commands;
 
 use GuzzleHttp\Client;
 
-class FetchTorExitNodes {
-
+class FetchTorExitNodes
+{
     const URL_EXIT_NODES = 'https://check.torproject.org/exit-addresses';
 
     public function exec()
@@ -26,5 +26,4 @@ class FetchTorExitNodes {
             return strpos($line, 'ExitAddress') === 0;
         }));
     }
-
 }

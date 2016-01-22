@@ -7,7 +7,6 @@ use TorInfo\Support\Laravel\Console\CacheTorIPs;
 
 class TorInfoServiceProvider extends ServiceProvider
 {
-
     /**
      * Bootstrap the application services.
      *
@@ -25,7 +24,7 @@ class TorInfoServiceProvider extends ServiceProvider
      */
     public function register()
     {
-        $this->publishes(array(__DIR__ . '/config/torinfo.php' => config_path('torinfo.php')));
+        $this->publishes([__DIR__.'/config/torinfo.php' => config_path('torinfo.php')]);
 
         $this->registerCommands();
     }
@@ -41,5 +40,4 @@ class TorInfoServiceProvider extends ServiceProvider
             'command.tor.cache'
         );
     }
-
 }

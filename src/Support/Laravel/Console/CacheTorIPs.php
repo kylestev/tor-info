@@ -8,7 +8,6 @@ use TorInfo\Commands\FetchTorExitNodes;
 
 class CacheTorIPs extends Command
 {
-
     /**
      * The name and signature of the console command.
      *
@@ -42,13 +41,13 @@ class CacheTorIPs extends Command
     {
         $ips = $this->fetchExitNodeIPs()->map(function ($ip) use ($cache) {
             $cache->tags(config('torinfo.caching.tags'))->put($ip, true, config('torinfo.caching.expiry'));
+
             return $ip;
         });
     }
 
     private function fetchExitNodeIPs()
     {
-        return collect((new FetchTorExitNodes)->exec());
+        return collect((new FetchTorExitNodes())->exec());
     }
-
 }
